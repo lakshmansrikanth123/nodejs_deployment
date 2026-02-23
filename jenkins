@@ -35,7 +35,8 @@ pipeline {
        stage('Create Package') {
     steps {
         sh '''
-        tar --exclude=node_modules \
+        tar --warning=no-file-changed \
+            --exclude=node_modules \
             --exclude=.git \
             --exclude=nodejs-task-manager.tar.gz \
             -czf nodejs-task-manager.tar.gz .
