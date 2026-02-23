@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'nodejs'   
+    }
+
+    environment {
+        APP_NAME = "nodejs-task-manager"
+        PACKAGE_NAME = "${APP_NAME}.tar.gz"
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/lakshmansrikanth123/nodejs_deployment.git']])
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo "Installing npm packages..."
+                sh 'npm install'
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                echo "Building application..."
+                sh 'npm run build || echo "No build step defined"'
+            }
+        }
+
+       stage('Create Package') {
+    steps {
+        sh '''
+        tar --exclude=node_modules \
+            --exclude=.git \
+            --exclude=nodejs-task-manager.tar.gz \
+            -czf nodejs-task-manager.tar.gz .
+        '''
+    }
+}
+
+     
+
+    }
+
+ 
+}   
