@@ -4,9 +4,10 @@
   "description": "Complex Node.js Task Manager with UI, Auth, MongoDB",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
-    "build": "echo Building app...",
-  },
+  "start": "node app.js",
+  "build": "echo Build..."
+}
+  ,
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.0.0",
